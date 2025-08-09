@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Conway's Life</title>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+        ></script>
+        <script src="conway.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="32ozbev.css" />
+        <link rel="icon" href="conway.png" />
+    </head>
+
+    <body>
+        <h1>Conway's Life</h1>
+        <div x-data="grid">
+            <div class="tableControl">
+                <button
+                    type="button"
+                    title="Remove Row"
+                    class="removeRow"
+                    x-on:click="loseRow"
+                ></button>
+                <button
+                    type="button"
+                    title="Add Row"
+                    class="addRow"
+                    x-on:click="addRow"
+                ></button>
+                <button
+                    type="button"
+                    title="Remove Column"
+                    class="removeColumn"
+                    x-on:click="loseColumn"
+                ></button>
+                <button
+                    type="button"
+                    title="Add Column"
+                    class="addColumn"
+                    x-on:click="addColumn"
+                ></button>
+            </div>
+            <div class="generationControl">
+                <button
+                    type="button"
+                    x-on:click="toggleRunning"
+                    x-bind:class="running ? 'stop' : 'play'"
+                    x-bind:title="running ? 'Stop' : 'Play'"
+                ></button>
+                <button
+                    type="button"
+                    title="Step"
+                    class="step"
+                    x-on:click="conwayGen"
+                ></button>
+                <button
+                    type="button"
+                    title="Clear"
+                    class="clear"
+                    x-on:click="clearUniverse"
+                ></button>
+            </div>
+            <table>
+                <tbody>
+                    <template x-model="rows" x-for="ii in rows">
+                        <tr>
+                            <template x-model="columns" x-for="jj in columns">
+                                <td
+                                    x-model="universe[ii-1][jj-1]"
+                                    x-on:click="universe[ii-1][jj-1] = ! universe[ii-1][jj-1]; "
+                                    x-bind:class="universe[ii-1][jj-1] ? 'clicked' : 'unclicked'"
+                                ></td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
